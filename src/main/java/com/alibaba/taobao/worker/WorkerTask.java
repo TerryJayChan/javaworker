@@ -11,6 +11,7 @@ public abstract class WorkerTask<T> implements Future<T> {
 
     public WorkerTask(int priority) {
         taskID = SimpleTaskIDGenerator.genTaskID();
+        this.priority = priority;
     }
 
     public String getTaskID() {

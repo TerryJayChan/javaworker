@@ -7,7 +7,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ConfigurableWorker implements Runnable, LifeCycle {
-    private BlockingQueue<WorkerTask<?>> taskQueue = new ArrayBlockingQueue<WorkerTask<?>>(5);
+    private BlockingQueue<WorkerTask<?>> taskQueue = new ArrayBlockingQueue<>(5);
 
     private Thread thread;
 
@@ -43,7 +43,7 @@ public class ConfigurableWorker implements Runnable, LifeCycle {
         thread = new Thread(this);
         thread.setDaemon(true);
 
-        listenerMap = new HashMap<WorkerEvent, CopyOnWriteArrayList<WorkerListener>>();
+        listenerMap = new HashMap<>();
 
         initiated = true;
     }
@@ -73,7 +73,7 @@ public class ConfigurableWorker implements Runnable, LifeCycle {
         for (WorkerEvent event : intrestEvents) {
             CopyOnWriteArrayList<WorkerListener> listeners = listenerMap.get(event);
             if (listeners == null) {
-                listeners = new CopyOnWriteArrayList<WorkerListener>();
+                listeners = new CopyOnWriteArrayList<>();
             }
 
             listeners.add(listener);

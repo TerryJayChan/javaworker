@@ -1,16 +1,14 @@
 package com.alibaba.taobao.worker.linear;
 
-import java.util.HashSet;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
 import com.alibaba.taobao.worker.WorkerTask;
+
+import java.util.HashSet;
+import java.util.concurrent.TimeUnit;
 
 public class PageURLMiningTask extends WorkerTask<HashSet<String>> {
     private static final int NO_PRIORITY = 0;
 
-    private HashSet<String> minedURLs = new HashSet<String>();
+    private HashSet<String> minedURLs = new HashSet<>();
 
     private String targetURL;
 
@@ -31,7 +29,7 @@ public class PageURLMiningTask extends WorkerTask<HashSet<String>> {
     }
 
     @Override
-    public synchronized HashSet<String> get() throws InterruptedException, ExecutionException {
+    public synchronized HashSet<String> get() throws InterruptedException {
         if (!isDone()) {
             wait();
         }
@@ -40,8 +38,7 @@ public class PageURLMiningTask extends WorkerTask<HashSet<String>> {
     }
 
     @Override
-    public synchronized HashSet<String> get(long timeout, TimeUnit unit) throws InterruptedException,
-            ExecutionException, TimeoutException {
+    public synchronized HashSet<String> get(long timeout, TimeUnit unit) throws InterruptedException {
         if (!isDone()) {
             wait(unit.toMillis(timeout));
         }
